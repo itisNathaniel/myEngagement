@@ -9,44 +9,101 @@
 <body>
 
 <!-- <%= (unknown[0])[0] %> -->
-    
+
+<div class="">
+
+<!-- top row --> 
 <div class="columns">
-        <div class="column attended bigblock">
-          First column
+        <div class="column attendedblock bigblock">
+          <span class="keyNumber"><%= sessionAttended.length %></span>
+          <span class="subtext">Sessions Attended</span>
+          <button class="button blockbutton modal-button" data-target="#attendedModal" aria-haspopup="true">See More</button>
+          <%- include ../partials/attended.ejs %>
         </div>
-        <div class="column absent bigblock">
-          Second column
+        <div class="column absentblock bigblock">
+            <span class="keyNumber"><%= sessionAbsent.length %></span>
+            <span class="subtext">Sessions Absent</span>
+            <button class="button blockbutton inline modal-button" data-target="#absentModal" aria-haspopup="true">See More</button>
+<%- include ../partials/absent.ejs %>
+
+            <span class="keyNumber"><%= authAbsentCount %></span>
+            <span class="subtext">of these were informed</span>
+            <button class="button blockbutton inline modal-button" data-target="#authAbsentModal" aria-haspopup="true">See More</button>
+<%- include ../partials/authAbsent.ejs %>
+
+        </div>
+        <div class="column doorAccessblock bigblock">
+            <span class="keyNumber"><%= accessGeneral.length + libraryAccess.length + accomodationAccess.length  %></span>
+            <span class="subtext">Doors Opened</span>
+            <span class="minitext"><%= accessGeneral.length %> Card Access Doors Opened</span>
+            <button class="button blockbutton modal-button" data-target="#accessGeneralModal" aria-haspopup="true">See More</button>
+            <%- include ../partials/accessGeneral.ejs %>
+            <span class="minitext"><%= libraryAccess.length %> Library Turnstiles Opened</span>
+            <button class="button blockbutton modal-button" data-target="#accessLibraryModal" aria-haspopup="true">See More</button>
+            <%- include ../partials/accessLibrary.ejs %>
+            <span class="minitext"><%= accomodationAccess.length %> University Accomodation</span>
+            <button class="button blockbutton modal-button" data-target="#accomodationAccessModal" aria-haspopup="true">See More</button>
+            <%- include ../partials/accessAccomodation.ejs %>
+        </div>
+        <div class="column eduroamblock bigblock">
+                <span class="keyNumber"><%= wifiLogin.length %></span>
+                <span class="subtext">eduroam sign-ins</span>
+        </div>
+</div>
+
+<!-- second row --> 
+<div class="columns">
+        <div class="column vleblock bigblock">
+                <span class="keyNumber"><%= vleLogin.length + panopto.length + webpa.length  %></span>
+                <span class="subtext">VLE Logins</span>  
+                <span class="minitext"><%= vleLogin.length %> Canvas Logins</span>  
+                <span class="minitext"><%= panopto.length %> Panopto Logins</span>   
+                <span class="minitext"><%= webpa.length %> webPA Logins</span>  
+        </div>
+        <div class="column printblock bigblock">
+                <span class="keyNumber"><%= printingGeneral.length + printingScanner.length +  printingCopy.length %></span>
+                <span class="subtext">Printers Used</span>  
+                <span class="minitext"><%= printingGeneral.length %> Prints Started</span>  
+                <span class="minitext"><%= printingScanner.length %> Documents Scanned</span>  
+                <span class="minitext"><%= printingCopy.length %> Photocopiers Used</span> 
+        </div>
+        <div class="column ssoServicesSeatsUnionblock bigblock">
+                <span class="keyNumber"><%= ssoSEATS.length %></span>
+                <span class="subtext">times you've checked attendance</span>  
+                <span class="keyNumber"><%= ssoUnion.length %></span>
+                <span class="subtext">times you've used Union services online</span> 
+        </div>
+        <div class="column ihullblock bigblock">
+                <span class="keyNumber"><%= universityApp.length %></span>
+                <span class="subtext">times you've logged into iHull</span>  
+        </div>
+</div>
+
+<!-- third row --> 
+<div class="columns">
+        <div class="column bigblock">
+                <span class="keyNumber"><%= induction.length %></span>
+                <span class="subtext">Inductions online</span>  
+
+        </div>
+        <div class="column inductionblock bigblock">
+                <span class="keyNumber"><%= ssoHousing.length %></span>
+                <span class="subtext">Accomodation Portal Uses</span>  
         </div>
         <div class="column bigblock">
-          Third column
+
         </div>
         <div class="column bigblock">
-          Fourth column
+
         </div>
+</div>
+
 </div>
 
 <hr>
 
-<button class="button is-primary modal-button" data-target="#attendedModal" aria-haspopup="true">Sessions Attended</button>
-<%- include ../partials/attended.ejs %>
-
-<button class="button is-primary modal-button" data-target="#absentModal" aria-haspopup="true">Sessions Absent</button>
-<%- include ../partials/absent.ejs %>
-
-<button class="button is-primary modal-button" data-target="#authAbsentModal" aria-haspopup="true">Sessions Auth Absent</button>
-<%- include ../partials/authAbsent.ejs %>
-
 <button class="button is-primary modal-button" data-target="#unexpectedAttendanceModal" aria-haspopup="true">Unexpected Attendance</button>
 <%- include ../partials/unexpectedAttendance.ejs %>
-
-<button class="button is-primary modal-button" data-target="#accessGeneralModal" aria-haspopup="true">General Access</button>
-<%- include ../partials/accessGeneral.ejs %>
-
-<button class="button is-primary modal-button" data-target="#accessLibraryModal" aria-haspopup="true">Library Access</button>
-<%- include ../partials/accessLibrary.ejs %>
-
-<button class="button is-primary modal-button" data-target="#accomodationAccessModal" aria-haspopup="true">accomodationAccess</button>
-<%- include ../partials/accessAccomodation.ejs %>
 
 <button class="button is-primary modal-button" data-target="#wifiLoginModal" aria-haspopup="true">wifiLogin</button>
 <%- include ../partials/wifiLogin.ejs %>
@@ -117,6 +174,9 @@ document.querySelectorAll('.modal-button').forEach(function(el) {
 </script>
 
 <style>
+body {
+    background-color: #3C185B;
+}
 .sessionNameWidth {
     max-width: 350px;
     margin-right: 30px;
@@ -136,6 +196,83 @@ document.querySelectorAll('.modal-button').forEach(function(el) {
 .absent {
     background-color: #f8595b;
 }
+
+.keyNumber {
+    font-size: 35px;
+    display: block;
+}
+
+.minitext {
+    font-size: 12px;
+    display: block;
+}
+
+.bigblock {
+    padding: 30px;
+    vertical-align: middle;
+    color: #fff;
+    min-height: calc(100%/3 + 5px);
+    position: relative;
+}
+.attendedblock {
+    background-color: #15d476;;
+}
+.absentblock {
+    background-color: #FF6666;
+}
+.doorAccessblock {
+    background-color: #EDAE49;
+}
+.eduroamblock {
+    background-color: #2C55A2;
+}
+
+.vleblock {
+    background-color: #587291;
+}
+
+.printblock {
+    background-color: #3C185B;
+}
+
+.ssoServicesSeatsUnionblock {
+    background-color: #E54B4B;
+}
+
+.ihullblock {
+    background-color: #282828;
+}
+
+.inductionBlock {
+    background-color: #008E9C;
+}
+
+.blockbutton {
+    opacity: 0.8;
+    padding: 0px;
+    background: none;
+    color: #ffffff;
+    border: 0px;
+    font-size: 14px;
+    border-bottom: 1px solid;
+    border-radius: 0px;
+    bottom: 10px;
+    display: block;
+    margin-top: 10px;
+    transition: 0.5s ease;
+    clear: both !important;
+    border-bottom: 0px;
+    font-size: 12px;
+    position: relative !important;
+}
+
+.blockbutton:hover {
+    opacity: 0.8;
+    border-color: #e6e6e6 !important;
+    color: #ffffff !important;
+}
+
+
 </style>
 
 <!-- Absent
