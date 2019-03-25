@@ -28,6 +28,7 @@ let universityAppAccessArray;
 let libraryResourceArray;
 let inductionArray;
 let unknownArray;
+let authAbsentCount;
 
 app.use(fileUpload());
 app.get('/',function(req,res) {
@@ -61,6 +62,7 @@ async function getSubset(array, callback)
     accomodationAccessArray = [];
     inductionArray = [];
     unknownArray = [];
+    authAbsentCount = 0;
 
     for (var i = 0, len = array.length; i < len; i++)    {      
         loopcount++;
@@ -82,6 +84,7 @@ async function getSubset(array, callback)
         else if(item[0] == "Scheduled Absence")
         {
             scheduledAbsentArray.push(item);
+            authAbsentCount++;
         }
         else if(item[0] == "Access to Campus")
         {
@@ -247,6 +250,7 @@ app.post('/process', async function(req, res) {
                         universityApp: universityAppAccessArray, // added
                         induction: inductionArray, // added
                         unknown: unknownArray, // added
+                        authAbsentCount: authAbsentCount,
                     });
                 })
     })
