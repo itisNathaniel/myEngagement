@@ -1,0 +1,31 @@
+<!-- Sessions Attended -->
+<div class="modal" id="unexpectedAttendanceModal">
+    <div class="modal-background"></div>
+    <div class="modal-card box-width">
+            <header class="modal-card-head">
+              <p class="modal-card-title">Unexpected Attendance</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                    <table>
+                            <tr class="individualSessionHead">
+                                <th>State</th>
+                                <th>Session</th>
+                                <th>Date</th>
+                                <th>User</th>
+                            
+                            </tr>
+                        <% for(var i=0; i < sessionUnexpected.length; i++) { %>
+                                <tr class="individualSession">
+                                  <td><%= (sessionUnexpected[i])[2] // active state %> </td>
+                                  <td class="sessionNameWidth"><%= (sessionUnexpected[i])[1] %></td>
+                                  <td><%= (sessionUnexpected[i])[3] %></td>
+                                  <td><%= (sessionUnexpected[i])[4] %></td>
+                                  <td></td>
+                                </tr>
+                             <% } %>
+                    </table>
+            </section>
+          </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>

@@ -1,0 +1,31 @@
+<!-- Sessions Absent -->
+<div class="modal" id="absentModal">
+    <div class="modal-background"></div>
+    <div class="modal-card box-width">
+            <header class="modal-card-head">
+              <p class="modal-card-title">Absent</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                    <table>
+                            <tr class="individualSessionHead">
+                                <th>State</th>
+                                <th>Session</th>
+                                <th>Date</th>
+                                <th>User</th>
+                            
+                            </tr>
+                        <% for(var i=0; i < sessionAbsent.length; i++) { %>
+                                <tr class="individualSession absent <% if ((sessionAbsent[i])[2] == 'Authorised Absent') { %>authorised<% } %>">
+                                  <td><%= (sessionAbsent[i])[2] // active state %> </td>
+                                  <td class="sessionNameWidth"><%= (sessionAbsent[i])[1] %></td>
+                                  <td><%= (sessionAbsent[i])[3] %></td>
+                                  <td><%= (sessionAbsent[i])[4] %></td>
+                                  <td></td>
+                                </tr>
+                             <% } %>
+                    </table>
+            </section>
+          </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>

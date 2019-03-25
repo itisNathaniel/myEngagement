@@ -1,0 +1,27 @@
+<!-- Sessions Attended -->
+<div class="modal" id="wifiLoginModal">
+    <div class="modal-background"></div>
+    <div class="modal-card box-width">
+            <header class="modal-card-head">
+              <p class="modal-card-title">Access Accomodation</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                    <table>
+                            <tr class="individualSessionHead">
+                                <th>Date</th>
+                                <th>Type</th>
+                            
+                            </tr>
+                        <% for(var i=0; i < wifiLogin.length; i++) { %>
+                                <tr class="individualSession">
+                                  <td><%= (wifiLogin[i])[3] // active state %> </td>
+                                  <td><%= (wifiLogin[i])[1] %></td>
+                                  <td></td>
+                                </tr>
+                             <% } %>
+                    </table>
+            </section>
+          </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>

@@ -225,7 +225,7 @@ app.post('/process', async function(req, res) {
                     console.log(attendanceArray);
                 }).then(()=>{
                     res.render('pages/results', {
-                        sessionAttended: ssoSignInArray,
+                        sessionAttended: attendanceArray,
                         sessionAbsent: absentArray,
                         sessionUnexpected: unexpectedArray,
                         sessionAuthAbsent: scheduledAbsentArray,
