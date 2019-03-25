@@ -10,8 +10,11 @@
 
 <!-- <%= (unknown[0])[0] %> -->
 
-<div class="">
-
+<div class="columns">
+<div class="name">
+<%= name %>
+</div>
+</div>
 <!-- top row --> 
 <div class="columns">
         <div class="column attendedblock bigblock">
@@ -38,6 +41,18 @@
             <button class="button blockbutton inline modal-button" data-target="#authAbsentModal" aria-haspopup="true">See More</button>
             <%- include ../partials/authAbsent.ejs %>
         </div>
+        <div class="column doorAccessblock bigblock">
+                <span class="subtext">Most Common Slot Missed:</span>
+                <span class="mediumText"><%= mostCommonTimeMissed %></span>
+                <span class="subtext">Most Common Module Missed:</span>
+                <span class="mediumText"><%= mostCommonModuleMissed %></span>
+                <span class="subtext">Most Common Day of Week Missed:</span>
+                <span class="mediumText"><%= getMostCommonDayOfWeekMissed %></span>
+        </div>
+</div>
+
+<!-- second row --> 
+<div class="columns">
 
         <div class="column unexpectedAttend bigblock">
                 <span class="keyNumber"><%= authAbsentCount %></span>
@@ -46,10 +61,7 @@
                 <%- include ../partials/unexpectedAttendance.ejs %>
         
         </div>
-</div>
-
-<!-- second row --> 
-<div class="columns">
+        
         <div class="column doorAccessblock bigblock">
                 <span class="keyNumber"><%= accessGeneral.length + libraryAccess.length + accomodationAccess.length  %></span>
                 <span class="subtext">Doors Opened</span>
@@ -62,13 +74,6 @@
                 <span class="minitext"><%= accomodationAccess.length %> Accomodation - Lawns & Courtyard</span>
                 <button class="button blockbutton modal-button" data-target="#accomodationAccessModal" aria-haspopup="true">See More</button>
                 <%- include ../partials/accessAccomodation.ejs %>
-        </div>
-
-        <div class="column eduroamblock bigblock">
-                <span class="keyNumber"><%= wifiLogin.length %></span>
-                <span class="subtext">eduroam sign-ins</span>
-                <button class="button blockbutton modal-button" data-target="#wifiLoginModal" aria-haspopup="true">See More</button>
-                <%- include ../partials/wifiLogin.ejs %>
         </div>
 
         <div class="column vleblock bigblock">
@@ -118,6 +123,24 @@
                 <%- include ../partials/ssoUniversityApp.ejs %>
         </div>
         <div class="column bigblock">
+                <span class="subtext">Most Used Library Resource</span>  
+                <span class="mediumText"><%= libraryMostCommonDomain %></span>  
+                <button class="button blockbutton modal-button" data-target="#ssoLibraryResourceModal" aria-haspopup="true">See More</button>
+                <%- include ../partials/ssoLibraryResource.ejs %>
+
+        </div>
+        <div class="column eduroamblock bigblock">
+                <span class="keyNumber"><%= wifiLogin.length %></span>
+                <span class="subtext">eduroam sign-ins</span>
+                <button class="button blockbutton modal-button" data-target="#wifiLoginModal" aria-haspopup="true">See More</button>
+                <%- include ../partials/wifiLogin.ejs %>
+        </div>
+
+</div>
+
+<!-- fourth row --> 
+<div class="columns">
+        <div class="column bigblock">
                 <span class="keyNumber"><%= induction.length %></span>
                 <span class="subtext">Inductions online accessed</span> 
                 <button class="button blockbutton modal-button" data-target="#ssoInductionModal" aria-haspopup="true">See More</button>
@@ -130,17 +153,6 @@
                 <button class="button blockbutton modal-button" data-target="#ssoHousingModal" aria-haspopup="true">See More</button>
                 <%- include ../partials/ssoHousing.ejs %>
         </div>
-</div>
-
-<!-- fourth row --> 
-<div class="columns">
-        <div class="column bigblock">
-                <span class="subtext">Most Used Library Resource</span>  
-                <span class="mediumText"><%= libraryMostCommonDomain %></span>  
-                <button class="button blockbutton modal-button" data-target="#ssoLibraryResourceModal" aria-haspopup="true">See More</button>
-                <%- include ../partials/ssoLibraryResource.ejs %>
-
-        </div>
         <div class="column doorAccessblock bigblock">
                 <span class="subtext">Debug Utilities</span>  <br><br>
                 <button class="button blockbutton modal-button" data-target="#ssoGeneralModal" aria-haspopup="true">Unclassified Taps</button>
@@ -148,8 +160,6 @@
                 <button class="button blockbutton modal-button" data-target="#ssoUnknownModal" aria-haspopup="true">Unknown Data</button>
                 <%- include ../partials/unknown.ejs %>
 
-        </div>
-        <div class="column bigblock">
         </div>
         <div class="column bigblock">
         </div>
@@ -295,11 +305,19 @@ body {
 }
 
 .mediumText {
-    font-size: 25px;
+    font-size: 20px;
     display: block;
     font-weight: 200;
+    line-height: 1.2;
+    padding: 15px 0;
 }
 
+.name {
+    font-size: 25px;
+    padding: 30px 0 20px 0;
+    margin-left: 30px;
+    color: #ffffff;
+}
 
 </style>
 

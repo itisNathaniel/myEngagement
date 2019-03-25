@@ -1,10 +1,12 @@
 const express = require('express')
 const fs = require('fs');
-const app = express()
 const fileUpload = require('express-fileupload');
 const csvtojsonV2 = require("csvtojson/v2");
+const URL = require('url');
+const date = require('date-and-time');
+
+const app = express()
 const port = 3000;
-var URL = require('url');
 
 // Global Arrays
 let attendanceArray;
@@ -33,6 +35,11 @@ let inductionArray;
 let unknownArray;
 let authAbsentCount;
 let libraryMostCommonDomain;
+let name;
+let oldestItemDate;
+let mostCommonTimeMissed;
+let mostCommonModuleMissed;
+let getMostCommonDayOfWeekMissed;
 
 app.use(fileUpload());
 app.get('/',function(req,res) {
@@ -40,6 +47,119 @@ app.get('/',function(req,res) {
 });
 
 let loopcount = 0;
+
+async function getStudentName(name, callback)
+{
+    var studentName = name.split(" Name: ").pop();
+    return studentName;
+}
+
+async function getMostCommonTime(array, callback)
+{
+    let times = [];
+    
+    for (var i = 0, len = array.length; i < len; i++)    
+    {   
+        let thisDateTime = (array[i])[3];
+        var thisTime = thisDateTime.split("- ").pop();
+        times.push(thisTime);
+    }
+
+    let counts = times.reduce((a, c) => {
+        a[c] = (a[c] || 0) + 1;
+        return a;
+      }, {});
+      let maxCount = Math.max(...Object.values(counts));
+      let mostFrequent = Object.keys(counts).filter(k => counts[k] === maxCount);
+
+      let returnSession = mostFrequent + " (" + maxCount + " sessions)";
+      
+    return returnSession;
+}
+
+async function getMostCommonDayOfWeek(array, callback)
+{
+    let dates = [];
+    
+    for (var i = 0, len = array.length; i < len; i++)    
+    {   
+        let thisDateTime = (array[i])[3];
+        var thisDay = (thisDateTime.split(" - ").shift());
+        var thisDate = date.parse(thisDay, 'DD/MM/YYYY');
+        var dayOfWeek = date.format(thisDate, 'dddd');
+        dates.push(dayOfWeek);
+    }
+
+    let counts = dates.reduce((a, c) => {
+        a[c] = (a[c] || 0) + 1;
+        return a;
+      }, {});
+      let maxCount = Math.max(...Object.values(counts));
+      let mostFrequent = Object.keys(counts).filter(k => counts[k] === maxCount);
+
+      let returnSession = mostFrequent + " (" + maxCount + " sessions)";
+      
+    return returnSession;
+} 
+
+async function getMostCommonMissedModule(array, callback)
+{
+    let modules = [];
+    
+    for (var i = 0, len = array.length; i < len; i++)    
+    {   
+        let thisSession = (array[i])[1];
+        var thisModuleName = thisSession.split(" - ").shift();
+        modules.push(thisModuleName);
+    }
+
+    let counts = modules.reduce((a, c) => {
+        a[c] = (a[c] || 0) + 1;
+        return a;
+      }, {});
+      let maxCount = Math.max(...Object.values(counts));
+      let mostFrequent = Object.keys(counts).filter(k => counts[k] === maxCount);
+      
+      let returnSession = mostFrequent + " (" + maxCount + " sessions)";
+
+    return returnSession;
+}
+
+async function wipeData(callback)
+{
+        // clear arrays
+        attendanceArray = [];
+        absentArray = [];
+        uninformedAbsentArray = [];
+        informedAbsentArray = []
+        unexpectedArray = [];
+        scheduledAbsentArray = [];
+        accessArray = [];
+        libraryAccessArray = [];
+        libraryResourceArray = [];
+        vleLoginArray = [];
+        vleRecordingArray = [];
+        webpaArray = [];
+        wifiArray = [];
+        printingArray = [];
+        printingScannerArray = [];
+        printingCopyArray = [];
+        ssoSignInArray = [];
+        ssoLoginSEATSArray = [];
+        ssoUnionArray = [];
+        ssoLoginHousingProvider = [];
+        universityAppAccessArray = [];
+        accomodationAccessArray = [];
+        inductionArray = [];
+        unknownArray = [];
+        authAbsentCount = 0;
+        oldestItemDate = null;
+        mostCommonTimeMissed = null;
+        mostCommonModuleMissed= null;
+        getMostCommonDayOfWeekMissed= null;
+        return;
+}
+
 
 async function getMostCommonDomain(array, callback)
 {
@@ -65,32 +185,7 @@ async function getMostCommonDomain(array, callback)
 
 async function getSubset(array, callback)
 {
-    // clear arrays
-    attendanceArray = [];
-    absentArray = [];
-    uninformedAbsentArray = [];
-    informedAbsentArray = []
-    unexpectedArray = [];
-    scheduledAbsentArray = [];
-    accessArray = [];
-    libraryAccessArray = [];
-    libraryResourceArray = [];
-    vleLoginArray = [];
-    vleRecordingArray = [];
-    webpaArray = [];
-    wifiArray = [];
-    printingArray = [];
-    printingScannerArray = [];
-    printingCopyArray = [];
-    ssoSignInArray = [];
-    ssoLoginSEATSArray = [];
-    ssoUnionArray = [];
-    ssoLoginHousingProvider = [];
-    universityAppAccessArray = [];
-    accomodationAccessArray = [];
-    inductionArray = [];
-    unknownArray = [];
-    authAbsentCount = 0;
+    await wipeData();
 
     for (var i = 0, len = array.length; i < len; i++)    {      
         loopcount++;
@@ -238,6 +333,10 @@ async function getSubset(array, callback)
         if(loopcount == array.length)
         {
             libraryMostCommonDomain = await getMostCommonDomain(libraryResourceArray);
+            name = await getStudentName((unknownArray[0])[0]);
+            mostCommonTimeMissed = await getMostCommonTime(uninformedAbsentArray);
+            mostCommonModuleMissed = await getMostCommonMissedModule(uninformedAbsentArray);
+            getMostCommonDayOfWeekMissed = await getMostCommonDayOfWeek(uninformedAbsentArray);
             return;
         }
     }
@@ -290,8 +389,14 @@ app.post('/process', async function(req, res) {
                         unknown: unknownArray, // added
                         authAbsentCount: authAbsentCount,
                         libraryMostCommonDomain: libraryMostCommonDomain,
+                        name: name,
+                        mostCommonTimeMissed: mostCommonTimeMissed,
+                        mostCommonModuleMissed: mostCommonModuleMissed,
+                        getMostCommonDayOfWeekMissed: getMostCommonDayOfWeekMissed,
                     });
                 })
+
+            fs.unlinkSync(path);
     })
 
 });
