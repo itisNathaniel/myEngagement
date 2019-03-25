@@ -3,11 +3,14 @@ const fs = require('fs');
 const app = express()
 const fileUpload = require('express-fileupload');
 const csvtojsonV2 = require("csvtojson/v2");
-const port = 3000
+const port = 3000;
+var URL = require('url');
 
 // Global Arrays
 let attendanceArray;
-let absentArray;
+let AllAbsentArray;
+let uninformedAbsentArray;
+let informedAbsentArray;
 let unexpectedArray;
 let scheduledAbsentArray;
 let accessArray;
@@ -29,6 +32,7 @@ let libraryResourceArray;
 let inductionArray;
 let unknownArray;
 let authAbsentCount;
+let libraryMostCommonDomain;
 
 app.use(fileUpload());
 app.get('/',function(req,res) {
@@ -37,11 +41,35 @@ app.get('/',function(req,res) {
 
 let loopcount = 0;
 
+async function getMostCommonDomain(array, callback)
+{
+    let bareDomains = [];
+    
+    for (var i = 0, len = array.length; i < len; i++)    
+    {   
+        let thisUrl = (array[i])[2];
+        let endString = URL.parse(thisUrl).hostname;
+        bareDomains.push(endString);
+    }
+
+    let counts = bareDomains.reduce((a, c) => {
+        a[c] = (a[c] || 0) + 1;
+        return a;
+      }, {});
+      let maxCount = Math.max(...Object.values(counts));
+      let mostFrequent = Object.keys(counts).filter(k => counts[k] === maxCount);
+      
+    return mostFrequent;
+    
+}
+
 async function getSubset(array, callback)
 {
     // clear arrays
     attendanceArray = [];
     absentArray = [];
+    uninformedAbsentArray = [];
+    informedAbsentArray = []
     unexpectedArray = [];
     scheduledAbsentArray = [];
     accessArray = [];
@@ -76,6 +104,14 @@ async function getSubset(array, callback)
         else if(item[0] == "Absent")
         {
             absentArray.push(item);
+            if(item[2] == "Authorised Absent")
+            {
+                informedAbsentArray.push(item);
+            }
+            else
+            {
+                uninformedAbsentArray.push(item);
+            }
         }
         else if(item[0] == "Unexpected")
         {
@@ -201,6 +237,7 @@ async function getSubset(array, callback)
 
         if(loopcount == array.length)
         {
+            libraryMostCommonDomain = await getMostCommonDomain(libraryResourceArray);
             return;
         }
     }
@@ -225,12 +262,13 @@ app.post('/process', async function(req, res) {
         (jsonObj)=>{
             getSubset(jsonObj).then(
                 (jsonObj)=>{
-                    console.log(attendanceArray);
                 }).then(()=>{
                     res.render('pages/results', {
                         sessionAttended: attendanceArray, // added
                         sessionAbsent: absentArray, // added
                         sessionUnexpected: unexpectedArray, // added
+                        sessionInformedAbsent: informedAbsentArray,
+                        sessionUninformedAbsent: uninformedAbsentArray,
                         sessionAuthAbsent: scheduledAbsentArray, // added
                         accessGeneral: accessArray, // added 
                         libraryAccess: libraryAccessArray, // added
@@ -251,6 +289,7 @@ app.post('/process', async function(req, res) {
                         induction: inductionArray, // added
                         unknown: unknownArray, // added
                         authAbsentCount: authAbsentCount,
+                        libraryMostCommonDomain: libraryMostCommonDomain,
                     });
                 })
     })
