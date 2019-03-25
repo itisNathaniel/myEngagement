@@ -1,0 +1,26 @@
+<!-- Sessions Absent -->
+<div class="modal" id="ssoUnionModal">
+    <div class="modal-background"></div>
+    <div class="modal-card box-width">
+            <header class="modal-card-head">
+              <p class="modal-card-title">SSO Union</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                    <table>
+                            <tr class="individualSessionHead">
+                                <th>Date</th>
+                                <th>Site</th>
+                            
+                            </tr>
+                        <% for(var i=0; i < ssoUnion.length; i++) { %>
+                                <tr class="individualSession">
+                                  <td><%= (ssoUnion[i])[3] %></td>
+                                  <td><%= (ssoUnion[i])[2] // active state %> </td>
+                                </tr>
+                             <% } %>
+                    </table>
+            </section>
+          </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>

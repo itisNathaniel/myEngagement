@@ -225,21 +225,24 @@ app.post('/process', async function(req, res) {
                     console.log(attendanceArray);
                 }).then(()=>{
                     res.render('pages/results', {
-                        sessionAttended: attendanceArray,
-                        sessionAbsent: absentArray,
-                        sessionUnexpected: unexpectedArray,
-                        sessionAuthAbsent: scheduledAbsentArray,
-                        accessGeneral: accessArray,
-                        libraryAccess: libraryAccessArray,
-                        accomodationAccess: accomodationAccessArray,
-                        libraryResource: libraryResourceArray,
-                        vleLogin: vleLoginArray,
-                        wifiLogin: wifiArray,
-                        printingGeneral: printingArray,
+                        sessionAttended: attendanceArray, // added
+                        sessionAbsent: absentArray, // added
+                        sessionUnexpected: unexpectedArray, // added
+                        sessionAuthAbsent: scheduledAbsentArray, // added
+                        accessGeneral: accessArray, // added 
+                        libraryAccess: libraryAccessArray, // added
+                        accomodationAccess: accomodationAccessArray, // added
+                        libraryResource: libraryResourceArray, // added
+                        vleLogin: vleLoginArray, // added
+                        wifiLogin: wifiArray, // added
+                        panopto: vleRecordingArray, // added
+                        webpa: webpaArray,
+                        printingGeneral: printingArray, // added
                         printingScanner: printingScannerArray,
                         printingCopy: printingCopyArray,
                         ssoGeneral: ssoSignInArray,
                         ssoSEATS: ssoLoginSEATSArray,
+                        ssoUnion: ssoUnionArray, // added
                         ssoHousing: ssoLoginHousingProvider,
                         universityApp: universityAppAccessArray,
                         induction: inductionArray,

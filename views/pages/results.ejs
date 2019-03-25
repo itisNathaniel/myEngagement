@@ -32,6 +32,22 @@
 <button class="button is-primary modal-button" data-target="#wifiLoginModal" aria-haspopup="true">wifiLogin</button>
 <%- include ../partials/wifiLogin.ejs %>
 
+<button class="button is-primary modal-button" data-target="#ssoLibraryResourceModal" aria-haspopup="true">ssoLibraryResource</button>
+<%- include ../partials/ssoLibraryResource.ejs %>
+
+<button class="button is-primary modal-button" data-target="#ssoUnionModal" aria-haspopup="true">ssoUnion</button>
+<%- include ../partials/ssoUnion.ejs %>
+
+<button class="button is-primary modal-button" data-target="#vleLoginModal" aria-haspopup="true">vleLogin</button>
+<%- include ../partials/ssoVLELogin.ejs %>
+
+<button class="button is-primary modal-button" data-target="#panoptoModal" aria-haspopup="true">panoptoModal</button>
+<%- include ../partials/panopto.ejs %>
+
+<button class="button is-primary modal-button" data-target="#printingGeneral" aria-haspopup="true">printingGeneral</button>
+<%- include ../partials/printingGeneral.ejs %>
+
+
 <script>
 document.querySelectorAll('.modal-button').forEach(function(el) {
   el.addEventListener('click', function() {
@@ -72,7 +88,7 @@ document.querySelectorAll('.modal-button').forEach(function(el) {
     background-color: #f8595b;
 }
 </style>
-<!-- <%- JSON.stringify(sessionAbsent) %> -->
+<%- JSON.stringify(printingScanner) %> 
 
 <!-- Absent
 <table>
