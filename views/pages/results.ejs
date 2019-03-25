@@ -7,7 +7,26 @@
 
 </head>
 <body>
+
+<!-- <%= (unknown[0])[0] %> -->
     
+<div class="columns">
+        <div class="column attended bigblock">
+          First column
+        </div>
+        <div class="column absent bigblock">
+          Second column
+        </div>
+        <div class="column bigblock">
+          Third column
+        </div>
+        <div class="column bigblock">
+          Fourth column
+        </div>
+</div>
+
+<hr>
+
 <button class="button is-primary modal-button" data-target="#attendedModal" aria-haspopup="true">Sessions Attended</button>
 <%- include ../partials/attended.ejs %>
 
@@ -47,6 +66,32 @@
 <button class="button is-primary modal-button" data-target="#printingGeneral" aria-haspopup="true">printingGeneral</button>
 <%- include ../partials/printingGeneral.ejs %>
 
+<button class="button is-primary modal-button" data-target="#printingScannerModal" aria-haspopup="true">printingScanner</button>
+<%- include ../partials/printingScanner.ejs %>
+
+<button class="button is-primary modal-button" data-target="#printingCopyModal" aria-haspopup="true">printingCopy</button>
+<%- include ../partials/printingCopy.ejs %>
+
+<button class="button is-primary modal-button" data-target="#webPAModal" aria-haspopup="true">webPA</button>
+<%- include ../partials/ssoWebPA.ejs %>
+
+<button class="button is-primary modal-button" data-target="#ssoGeneralModal" aria-haspopup="true">ssoGeneral</button>
+<%- include ../partials/ssoGeneral.ejs %>
+
+<button class="button is-primary modal-button" data-target="#ssoSEATSModal" aria-haspopup="true">ssoSEATS</button>
+<%- include ../partials/ssoSEATS.ejs %>
+
+<button class="button is-primary modal-button" data-target="#ssoHousingModal" aria-haspopup="true">ssoHousing</button>
+<%- include ../partials/ssoHousing.ejs %>
+
+<button class="button is-primary modal-button" data-target="#ssoUniversityAppModal" aria-haspopup="true">ssoUniversityApp</button>
+<%- include ../partials/ssoUniversityApp.ejs %>
+
+<button class="button is-primary modal-button" data-target="#ssoInductionModal" aria-haspopup="true">ssoInduction</button>
+<%- include ../partials/ssoInduction.ejs %>
+
+<button class="button is-primary modal-button" data-target="#ssoUnknownModal" aria-haspopup="true">extras</button>
+<%- include ../partials/unknown.ejs %>
 
 <script>
 document.querySelectorAll('.modal-button').forEach(function(el) {
@@ -58,6 +103,10 @@ document.querySelectorAll('.modal-button').forEach(function(el) {
     target.querySelector('.delete').addEventListener('click',   function() {
         target.classList.remove('is-active');
      });
+
+    target.querySelector('.modal-background').addEventListener('click',   function() {
+    target.classList.remove('is-active');
+    });
 
     target.querySelector('.modal-close').addEventListener('click',   function() {
         target.classList.remove('is-active');
@@ -88,7 +137,6 @@ document.querySelectorAll('.modal-button').forEach(function(el) {
     background-color: #f8595b;
 }
 </style>
-<%- JSON.stringify(printingScanner) %> 
 
 <!-- Absent
 <table>

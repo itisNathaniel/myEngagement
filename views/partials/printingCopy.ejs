@@ -1,0 +1,26 @@
+<!-- Sessions Absent -->
+<div class="modal" id="printingCopyModal">
+    <div class="modal-background"></div>
+    <div class="modal-card box-width">
+            <header class="modal-card-head">
+              <p class="modal-card-title">Printing Copy</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                    <table>
+                            <tr class="individualSessionHead">
+                                <th>Date</th>
+                                <th>Where</th>
+                            
+                            </tr>
+                        <% for(var i=0; i < printingCopy.length; i++) { %>
+                                <tr class="individualSession">
+                                  <td><%= (printingCopy[i])[3] %></td>
+                                  <td><%= (printingCopy[i])[1] // active state %> </td>
+                                </tr>
+                             <% } %>
+                    </table>
+            </section>
+          </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>

@@ -1,0 +1,32 @@
+<!-- Sessions Absent -->
+<div class="modal" id="ssoUnknownModal">
+    <div class="modal-background"></div>
+    <div class="modal-card box-width">
+            <header class="modal-card-head">
+              <p class="modal-card-title">SSO Unknown</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                    <table>
+                            <tr class="individualSessionHead">
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>                       
+                            </tr>
+                        <% for(var i=0; i < unknown.length; i++) { %>
+                                <tr class="individualSession">
+                                  <td><%= (unknown[i])[0] %></td>
+                                  <td><%= (unknown[i])[1] %> </td>
+                                  <td><%= (unknown[i])[2] %> </td>
+                                  <td><%= (unknown[i])[3] %> </td>
+                                  <td><%= (unknown[i])[4] %> </td>
+
+                                </tr>
+                             <% } %>
+                    </table>
+            </section>
+          </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>

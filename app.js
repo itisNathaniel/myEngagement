@@ -109,7 +109,7 @@ async function getSubset(array, callback)
         } 
         else if(item[2] == "https://webpa-prod.hull.ac.uk/entity")
         {
-            vleLoginArray.push(item);
+            webpaArray.push(item);
         }
         else if(item[1] == "LOGON_SEATS Ping Federate Access")
         {
@@ -236,17 +236,17 @@ app.post('/process', async function(req, res) {
                         vleLogin: vleLoginArray, // added
                         wifiLogin: wifiArray, // added
                         panopto: vleRecordingArray, // added
-                        webpa: webpaArray,
+                        webpa: webpaArray, // added
                         printingGeneral: printingArray, // added
-                        printingScanner: printingScannerArray,
-                        printingCopy: printingCopyArray,
-                        ssoGeneral: ssoSignInArray,
-                        ssoSEATS: ssoLoginSEATSArray,
+                        printingScanner: printingScannerArray, // added
+                        printingCopy: printingCopyArray, // added
+                        ssoGeneral: ssoSignInArray, // added
+                        ssoSEATS: ssoLoginSEATSArray, // added
                         ssoUnion: ssoUnionArray, // added
-                        ssoHousing: ssoLoginHousingProvider,
-                        universityApp: universityAppAccessArray,
-                        induction: inductionArray,
-                        unknown: unknownArray,
+                        ssoHousing: ssoLoginHousingProvider, // added
+                        universityApp: universityAppAccessArray, // added
+                        induction: inductionArray, // added
+                        unknown: unknownArray, // added
                     });
                 })
     })
