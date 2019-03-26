@@ -432,5 +432,13 @@ app.post('/process', async function(req, res) {
 
 });
 
+app.use(function(req, res, next){
+    res.status(404);
+  
+    // respond with html page
+      res.render('pages/404');
+      return;
+});
+
 app.set('view engine', 'ejs');
 app.listen(port, () => console.log(`myEngagement listening on port ${port}!`))

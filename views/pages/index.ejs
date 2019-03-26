@@ -1,5 +1,64 @@
-<html>
-  <body>
+<!DOCTYPE html>
+<html class="fullpage">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Favicon / Touch Icon -->
+  <link rel="icon" href="//na.thaniel.uk/images/icons/n-for-nathaniel.png" />
+  <link rel="apple-touch-icon" href="//na.thaniel.uk/images/icons/n-for-nathaniel.png">
+
+<!-- Style and Scripts -->
+  <link rel="stylesheet" href="//na.thaniel.uk/css/main.css">
+
+<!-- Post/Page image -->
+  
+  <meta property="og:image" content="//na.thaniel.uk/images/himg.jpg">
+  <meta name="twitter:image" content="//na.thaniel.uk/images/himg.jpg">
+</head>
+
+<body>
+
+    <div class="wrapped-middle">
+    <div class="pagecontain">
+    <div class="page-content">
+    <div class="name"><br>
+
+      <div class="container is-fluid">
+          <div class="buttons are-medium">
+              <a href="https://na.thaniel.uk/attendance-tool/" class="button">< Go Back to na.thaniel.uk</a>
+            </div>
+          </div>
+    <br>
+
+    <div class="inline"> <img class="ucard" src="//na.thaniel.uk/images/preserve/unical/card.png"></div>
+    <div class="titlemain inline">Understand Your <br> University Information</div>
+    </div>
+    
+    <br>
+    <a href="//na.thaniel.uk/images/preserve/myengagement/sessionview.png"><img style="width:60%; max-width: 700px; display: block; margin: 0 auto;" src="//na.thaniel.uk/images/preserve/myengagement/sessionview.png"></a>
+    
+    
+    <div class="wrapped-middle-mini">
+    <hr class="splitline">
+    <b>How to get this for your own attendance:</b>
+    <ol>
+    <li><div class="numbercirc">1</div>Email your Student Hub (for Science and Engineering - science-hub@hull.ac.uk) and say something along the lines of '<i>Dear Student Hub, I am requesting a copy of my attendance in CSV format. Thanks</i>'</li>
+    <br>
+    <li><div class="numbercirc">2</div>They'll send you a CSV of your attendance as an attachment (you may have to view the enquiry on <a href="//evision.hull.ac.uk">evision.hull.ac.uk</a> to see it).</li>
+    <br>
+    <li><div class="numbercirc">3</div>Download your CSV, upload it to this page below and press upload</li>
+    <br>
+    <li><div class="numbercirc"><i class="fa fa-check"></i></div>View your data, as soon as you leave the page it will be deleted</li>
+    
+    </ol>
+    <br>
+    
+    <hr class="splitline">
+    
+    <center>
     <form ref='uploadForm' 
       id='uploadForm' 
       action='/process' 
@@ -7,6 +66,133 @@
       encType="multipart/form-data">
         <input type="file" name="uploadedFile" />
         <input type='submit' value='Upload!' />
-    </form>     
+    </form> 
+    </center>
+    
+    <hr class="splitline">
+    
+    <div class="bottomsection">
+    Don't fancy uploading your attendance file to someone else's server? That's cool too.
+    <br>
+    <a href="//github.com/itisNathaniel/myEngagement"><i class="fa fa-github"></i> Download the server from GitHub here and run it yourself. </a>
+    </div>
+    
+    
+    <br><br><br>
+    </div>
+    </div>
+    </div>
+    <style>
+    .ucard {
+      height: 120px;
+      transform: rotate(-5deg);
+      padding-left: 10px;
+    }
+    
+    @media only screen and (min-width: 950px) {
+      .ucard {
+      margin-top: -40px;
+      }
+    }
+    
+    .titlemain {
+      font-size: 30px;
+      font-family: 'roboto mono';
+      font-weight: 500;
+      padding-left: 20px;
+    }
+    .inline {
+      display: inline-block;
+      margin-top: 20px;
+    }
+    
+    .add {
+      height: 30px;
+      font-size: 20px;
+      padding: 10px;
+      border: 5px solid #ff7902;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+    }
+    
+    .wrapped-middle {
+      width: 80%;
+      min-width: 200px;
+      margin: 0 auto;
+    }
+    
+    .wrapped-middle-mini {
+      width: 80%;
+      min-width: 300px;
+      margin: 0 auto;
+    }
+    
+    li {
+      margin-top: 20px;
+      list-style-type: none;
+    }
+    
+    .numbercirc {
+      background-color: #ff7800;
+      color: #fff;
+      height: 20px;
+      width: 20px;
+      padding: 10px;
+      text-align: center;
+      border-radius: 360px;
+      margin-right: 10px;
+      display: inline-block;
+      font-weight: 500;
+      float: left;
+      margin-bottom: 20px;
+      margin-top: -5px;
+    }
+    
+    .submit {
+      background-color: #ff7900;
+      padding: 18px;
+      height: 60px;
+      width: 150px;
+      margin: 0 auto;
+      font-size: 15px;
+      font-family: 'roboto mono';
+      color: #ffffff;
+      font-weight: 500;
+      border: 5px solid #ff7902;
+      -webkit-appearance: none;
+    
+    }
+    
+    .splitline {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border-color: #fff;
+    }
+    
+    .student {
+      text-align: center;
+    }
+    
+    .bottomsection {
+        line-height: 1.6;
+        font-size: 13px;
+        text-align: center;
+        color: #585858;
+    }
+
+    .name {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .button {
+      padding: 10px;
+      border: 1px solid #c7c7c7;
+      margin: 10px;
+      border-radius: 4px;
+      font-weight: 200;
+      border-bottom: 1px solid #c7c7c7 !important;
+    }
+    </style>
+    
   </body>
-</html>
