@@ -154,9 +154,9 @@ async function wipeData(callback)
         unknownArray = [];
         authAbsentCount = 0;
         oldestItemDate = null;
-        mostCommonTimeMissed = null;
-        mostCommonModuleMissed= null;
-        getMostCommonDayOfWeekMissed= null;
+        mostCommonTimeMissed;
+        mostCommonModuleMissed;
+        getMostCommonDayOfWeekMissed;
         return;
 }
 
@@ -346,7 +346,8 @@ async function getSubset(array, callback)
                     if(libraryMostCommonDomain != null)
                     {
                         let day = getMostCommonDayOfWeekMissed;
-                        console.log(day);
+                        var date = new Date();
+                        console.log("Tool used: " + date);
                         return "success";
                     }
                     else {
