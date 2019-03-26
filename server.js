@@ -186,162 +186,174 @@ async function getMostCommonDomain(array, callback)
 async function getSubset(array, callback)
 {
     await wipeData();
+    try {
+    if((array[0])[0].indexOf("Report: Student Timeline") > -1)
+    {
+        for (var i = 0, len = array.length; i < len; i++)    {      
+            loopcount++;
+            let j = array[i];
+            let item = Object.keys(j).map(function(_) { return j[_]; });
 
-    for (var i = 0, len = array.length; i < len; i++)    {      
-        loopcount++;
-        let j = array[i];
-        let item = Object.keys(j).map(function(_) { return j[_]; });
-
-        if(item[0] == "Attendance")
-        {
-            attendanceArray.push(item);
-        }
-        else if(item[0] == "Absent")
-        {
-            absentArray.push(item);
-            if(item[2] == "Authorised Absent")
+            if(item[0] == "Attendance")
             {
-                informedAbsentArray.push(item);
+                attendanceArray.push(item);
             }
-            else
+            else if(item[0] == "Absent")
             {
-                uninformedAbsentArray.push(item);
+                absentArray.push(item);
+                if(item[2] == "Authorised Absent")
+                {
+                    informedAbsentArray.push(item);
+                }
+                else
+                {
+                    uninformedAbsentArray.push(item);
+                }
             }
-        }
-        else if(item[0] == "Unexpected")
-        {
-            unexpectedArray.push(item);
-        }
-        else if(item[0] == "Scheduled Absence")
-        {
-            scheduledAbsentArray.push(item);
-            authAbsentCount++;
-        }
-        else if(item[0] == "Access to Campus")
-        {
-            accessArray.push(item);
-        }
-        else if(item[2] == "https://hulluniunion.com/samlauth/module.php/saml/sp/metadata.php/hulluni")
-        {
-            ssoUnionArray.push(item);
-        }
-        else if(item[2] == "https://hullstudent.com/samlauth/module.php/saml/sp/metadata.php/hulluni")
-        {
-            ssoUnionArray.push(item);
-        }
-        else if(item[0] == "Generic VLE Logon")
-        {
-            vleLoginArray.push(item);
-        }
-        else if(item[1] == "PING_CANVAS Ping Federate Access")
-        {
-            vleLoginArray.push(item);
-        }
-        else if(item[2] == "https://uoh.cloud.panopto.eu/Panopto/Pages/Auth/Login.aspx")
-        {
-            vleRecordingArray.push(item);
-        } 
-        else if(item[2] == "https://webpa-prod.hull.ac.uk/entity")
-        {
-            webpaArray.push(item);
-        }
-        else if(item[1] == "LOGON_SEATS Ping Federate Access")
-        {
-            ssoLoginSEATSArray.push(item);
-        }
-        else if(item[2] == "https://hull.seats.cloud/")
-        {
-            ssoLoginSEATSArray.push(item);
-        }
-        else if(item[1] == "PING_SEATS Ping Federate Access")
-        {
-            ssoLoginSEATSArray.push(item);
-        }
-        else if(item[0] == "Wifi Eduroam Campus")
-        {
-            wifiArray.push(item);
-        }
-        else if(item[1] == "WIFI_EDUROAM_CAMPUS Shared WIFI Login")
-        {
-            wifiArray.push(item);
-        }
-        else if(item[0] == "Access to Library")
-        {
-            libraryAccessArray.push(item);
-        }
-        else if(item[0] == "Library Resource Logon")
-        {
-            libraryResourceArray.push(item);
-        }
-        else if(item[1] == "LOGON_LIB_ELECTRONIC_RESOURCE Ping Federate Access")
-        {
-            libraryResourceArray.push(item);
-        }
-        else if(item[1] == "PING_LIB_ELECTRONIC_RESOURCE Ping Federate Access")
-        {
-            libraryResourceArray.push(item);
-        }
-        else if(item[1] == "ACCESS_ACCOMMODATION")
-        {
-            accomodationAccessArray.push(item);
-        }
-        else if(item[2] == "https://hull.starrezhousing.com/StarRezPortal/")
-        {
-            ssoLoginHousingProvider.push(item);
-        }
-        else if(item[1] == "Access_Accomodation")
-        {
-            accomodationAccessArray.push(item);
-        }
-        else if(item[0] == "General Printing")
-        {
-            printingArray.push(item);
-        }
-        else if(item[0] == "Print Scan")
-        {
-            printingScannerArray.push(item);
-        }
-        else if(item[0] == "Print Copy")
-        {
-            printingCopyArray.push(item);
-        }
-        else if(item[0] == "University App Logon")
-        {
-            universityAppAccessArray.push(item);
-        }
-        else if(item[1] == "PING_I_HULL Ping Federate Access")
-        {
-            universityAppAccessArray.push(item);
-        }
-        else if(item[1] == "LOGON_I_HULL Ping Federate Access")
-        {
-            universityAppAccessArray.push(item);
-        }
-        else if(item[2] == "https://induction.hull.ac.uk/saml/metadata")
-        {
-            inductionArray.push(item);
-        }
-        else if(item[0] == "Unspecified Logon")
-        {
-            ssoSignInArray.push(item);
-        }
-        else 
-        {
-            unknownArray.push(await item);
-        }  
+            else if(item[0] == "Unexpected")
+            {
+                unexpectedArray.push(item);
+            }
+            else if(item[0] == "Scheduled Absence")
+            {
+                scheduledAbsentArray.push(item);
+                authAbsentCount++;
+            }
+            else if(item[0] == "Access to Campus")
+            {
+                accessArray.push(item);
+            }
+            else if(item[2] == "https://hulluniunion.com/samlauth/module.php/saml/sp/metadata.php/hulluni")
+            {
+                ssoUnionArray.push(item);
+            }
+            else if(item[2] == "https://hullstudent.com/samlauth/module.php/saml/sp/metadata.php/hulluni")
+            {
+                ssoUnionArray.push(item);
+            }
+            else if(item[0] == "Generic VLE Logon")
+            {
+                vleLoginArray.push(item);
+            }
+            else if(item[1] == "PING_CANVAS Ping Federate Access")
+            {
+                vleLoginArray.push(item);
+            }
+            else if(item[2] == "https://uoh.cloud.panopto.eu/Panopto/Pages/Auth/Login.aspx")
+            {
+                vleRecordingArray.push(item);
+            } 
+            else if(item[2] == "https://webpa-prod.hull.ac.uk/entity")
+            {
+                webpaArray.push(item);
+            }
+            else if(item[1] == "LOGON_SEATS Ping Federate Access")
+            {
+                ssoLoginSEATSArray.push(item);
+            }
+            else if(item[2] == "https://hull.seats.cloud/")
+            {
+                ssoLoginSEATSArray.push(item);
+            }
+            else if(item[1] == "PING_SEATS Ping Federate Access")
+            {
+                ssoLoginSEATSArray.push(item);
+            }
+            else if(item[0] == "Wifi Eduroam Campus")
+            {
+                wifiArray.push(item);
+            }
+            else if(item[1] == "WIFI_EDUROAM_CAMPUS Shared WIFI Login")
+            {
+                wifiArray.push(item);
+            }
+            else if(item[0] == "Access to Library")
+            {
+                libraryAccessArray.push(item);
+            }
+            else if(item[0] == "Library Resource Logon")
+            {
+                libraryResourceArray.push(item);
+            }
+            else if(item[1] == "LOGON_LIB_ELECTRONIC_RESOURCE Ping Federate Access")
+            {
+                libraryResourceArray.push(item);
+            }
+            else if(item[1] == "PING_LIB_ELECTRONIC_RESOURCE Ping Federate Access")
+            {
+                libraryResourceArray.push(item);
+            }
+            else if(item[1] == "ACCESS_ACCOMMODATION")
+            {
+                accomodationAccessArray.push(item);
+            }
+            else if(item[2] == "https://hull.starrezhousing.com/StarRezPortal/")
+            {
+                ssoLoginHousingProvider.push(item);
+            }
+            else if(item[1] == "Access_Accomodation")
+            {
+                accomodationAccessArray.push(item);
+            }
+            else if(item[0] == "General Printing")
+            {
+                printingArray.push(item);
+            }
+            else if(item[0] == "Print Scan")
+            {
+                printingScannerArray.push(item);
+            }
+            else if(item[0] == "Print Copy")
+            {
+                printingCopyArray.push(item);
+            }
+            else if(item[0] == "University App Logon")
+            {
+                universityAppAccessArray.push(item);
+            }
+            else if(item[1] == "PING_I_HULL Ping Federate Access")
+            {
+                universityAppAccessArray.push(item);
+            }
+            else if(item[1] == "LOGON_I_HULL Ping Federate Access")
+            {
+                universityAppAccessArray.push(item);
+            }
+            else if(item[2] == "https://induction.hull.ac.uk/saml/metadata")
+            {
+                inductionArray.push(item);
+            }
+            else if(item[0] == "Unspecified Logon")
+            {
+                ssoSignInArray.push(item);
+            }
+            else 
+            {
+                unknownArray.push(await item);
+            }  
 
-        if(loopcount == array.length)
-        {
-            libraryMostCommonDomain = await getMostCommonDomain(libraryResourceArray);
-            name = await getStudentName((unknownArray[0])[0]);
-            mostCommonTimeMissed = await getMostCommonTime(uninformedAbsentArray);
-            mostCommonModuleMissed = await getMostCommonMissedModule(uninformedAbsentArray);
-            getMostCommonDayOfWeekMissed = await getMostCommonDayOfWeek(uninformedAbsentArray);
+            if(loopcount == array.length)
+            {
+                libraryMostCommonDomain = await getMostCommonDomain(libraryResourceArray);
+                name = await getStudentName((unknownArray[0])[0]);
+                mostCommonTimeMissed = await getMostCommonTime(uninformedAbsentArray);
+                mostCommonModuleMissed = await getMostCommonMissedModule(uninformedAbsentArray);
+                getMostCommonDayOfWeekMissed = await getMostCommonDayOfWeek(uninformedAbsentArray);
 
-            Promise.all([getMostCommonDomain(libraryResourceArray), getStudentName((unknownArray[0])[0]), getMostCommonTime(uninformedAbsentArray), getMostCommonMissedModule(uninformedAbsentArray), getMostCommonDayOfWeek(uninformedAbsentArray) ]).
-            then(()=>{return;});
+                Promise.all([getMostCommonDomain(libraryResourceArray), getStudentName((unknownArray[0])[0]), getMostCommonTime(uninformedAbsentArray), getMostCommonMissedModule(uninformedAbsentArray), getMostCommonDayOfWeek(uninformedAbsentArray) ]).
+                then(()=>{return;});
+            }
         }
     }
+    else
+    {
+        return "error"; 
+    }
+    }
+    catch(err) {
+        return "error"; 
+    }
+
 }
 
 app.post('/process', async function(req, res) {
@@ -356,7 +368,7 @@ app.post('/process', async function(req, res) {
     // Use the mv() method to place the file somewhere on your server
     uploadedFile.mv(path, function(err) {
       if (err)
-        return res.status(500).send(err);
+        return res.render('pages/error');
       });
 
     const jsonArray=await csvtojsonV2().fromFile(path).then(
@@ -364,6 +376,8 @@ app.post('/process', async function(req, res) {
             getSubset(jsonObj).then(
                 (jsonObj)=>{
                 }).then(()=>{
+                    if(jsonObj == "error")
+                    {
                     res.render('pages/results', {
                         sessionAttended: attendanceArray, // added
                         sessionAbsent: absentArray, // added
@@ -396,6 +410,11 @@ app.post('/process', async function(req, res) {
                         mostCommonModuleMissed: mostCommonModuleMissed,
                         getMostCommonDayOfWeekMissed: getMostCommonDayOfWeekMissed,
                     });
+                }
+                    else
+                    {
+                        return res.render('pages/error');
+                    }
                 })
 
             fs.unlinkSync(path);
