@@ -342,12 +342,23 @@ async function getSubset(array, callback)
                 getMostCommonDayOfWeekMissed = await getMostCommonDayOfWeek(uninformedAbsentArray);
 
                 Promise.all([getMostCommonDomain(libraryResourceArray), getStudentName((unknownArray[0])[0]), getMostCommonTime(uninformedAbsentArray), getMostCommonMissedModule(uninformedAbsentArray), getMostCommonDayOfWeek(uninformedAbsentArray) ]).
-                then(()=>{return "success";});
+                then(()=>{
+                    if(libraryMostCommonDomain != null)
+                    {
+                        let domain = libraryMostCommonDomain;
+                        return "success";
+                    }
+                    else {
+                        console.log("Error, no domain");
+                        return "error"; 
+                    }
+                    });
             }
         }
     }
     else
     {
+        console.log("Error, failed");
         return "error"; 
     }
 
