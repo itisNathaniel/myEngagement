@@ -61,20 +61,20 @@ async function getMostCommonTime(array, callback)
     for (var i = 0, len = array.length; i < len; i++)    
     {   
         let thisDateTime = (array[i])[3];
-        var thisTime = thisDateTime.split("- ").pop();
-        times.push(thisTime);
+        var thisTime = await thisDateTime.split("- ").pop();
+        times.push(await thisTime);
     }
 
     let counts = times.reduce((a, c) => {
         a[c] = (a[c] || 0) + 1;
         return a;
       }, {});
-      let maxCount = Math.max(...Object.values(counts));
+      let maxCount = await Math.max(...Object.values(counts));
       let mostFrequent = Object.keys(counts).filter(k => counts[k] === maxCount);
 
-      let returnSession = mostFrequent + " (" + maxCount + " sessions)";
+      let returnSession = await mostFrequent + " (" + await maxCount + " sessions)";
       
-    return returnSession;
+    return await returnSession;
 }
 
 async function getMostCommonDayOfWeek(array, callback)
@@ -84,10 +84,10 @@ async function getMostCommonDayOfWeek(array, callback)
     for (var i = 0, len = array.length; i < len; i++)    
     {   
         let thisDateTime = (array[i])[3];
-        var thisDay = (thisDateTime.split(" - ").shift());
-        var thisDate = date.parse(thisDay, 'DD/MM/YYYY');
-        var dayOfWeek = date.format(thisDate, 'dddd');
-        dates.push(dayOfWeek);
+        var thisDay = await (thisDateTime.split(" - ").shift());
+        var thisDate = await date.parse(thisDay, 'DD/MM/YYYY');
+        var dayOfWeek = await date.format(thisDate, 'dddd');
+        dates.push(await dayOfWeek);
     }
 
     let counts = dates.reduce((a, c) => {
@@ -99,7 +99,7 @@ async function getMostCommonDayOfWeek(array, callback)
 
       let returnSession = mostFrequent + " (" + maxCount + " sessions)";
       
-    return returnSession;
+    return await returnSession;
 } 
 
 async function getMostCommonMissedModule(array, callback)
@@ -117,12 +117,12 @@ async function getMostCommonMissedModule(array, callback)
         a[c] = (a[c] || 0) + 1;
         return a;
       }, {});
-      let maxCount = Math.max(...Object.values(counts));
+      let maxCount = await Math.max(...Object.values(counts));
       let mostFrequent = Object.keys(counts).filter(k => counts[k] === maxCount);
       
-      let returnSession = mostFrequent + " (" + maxCount + " sessions)";
+      let returnSession = await mostFrequent + " (" + await maxCount + " sessions)";
 
-    return returnSession;
+    return await returnSession;
 }
 
 async function wipeData(callback)
@@ -167,17 +167,17 @@ async function getMostCommonDomain(array, callback)
     
     for (var i = 0, len = array.length; i < len; i++)    
     {   
-        let thisUrl = (array[i])[2];
-        let endString = URL.parse(thisUrl).hostname;
-        bareDomains.push(endString);
+        let thisUrl = await (array[i])[2];
+        let endString = await URL.parse(thisUrl).hostname;
+        bareDomains.push(await endString);
     }
 
     let counts = bareDomains.reduce((a, c) => {
         a[c] = (a[c] || 0) + 1;
         return a;
       }, {});
-      let maxCount = Math.max(...Object.values(counts));
-      let mostFrequent = Object.keys(counts).filter(k => counts[k] === maxCount);
+      let maxCount = await Math.max(...Object.values(counts));
+      let mostFrequent = await Object.keys(counts).filter(k => counts[k] === maxCount);
       
     return mostFrequent;
     
@@ -197,18 +197,18 @@ async function getSubset(array, callback)
 
             if(item[0] == "Attendance")
             {
-                attendanceArray.push(item);
+                attendanceArray.push(await item);
             }
             else if(item[0] == "Absent")
             {
-                absentArray.push(item);
+                absentArray.push(await item);
                 if(item[2] == "Authorised Absent")
                 {
-                    informedAbsentArray.push(item);
+                    informedAbsentArray.push(await item);
                 }
                 else
                 {
-                    uninformedAbsentArray.push(item);
+                    uninformedAbsentArray.push(await item);
                 }
             }
             else if(item[0] == "Unexpected")
@@ -412,9 +412,9 @@ app.post('/process', async function(req, res) {
                     {
                         return res.render('pages/error');
                     }
-                })
-
-            fs.unlinkSync(path);
+                }).then(()=>{ 
+                    fs.unlinkSync(path);
+                });
     })
 
 });
