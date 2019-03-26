@@ -337,7 +337,9 @@ async function getSubset(array, callback)
             mostCommonTimeMissed = await getMostCommonTime(uninformedAbsentArray);
             mostCommonModuleMissed = await getMostCommonMissedModule(uninformedAbsentArray);
             getMostCommonDayOfWeekMissed = await getMostCommonDayOfWeek(uninformedAbsentArray);
-            return;
+
+            Promise.all([getMostCommonDomain(libraryResourceArray), getStudentName((unknownArray[0])[0]), getMostCommonTime(uninformedAbsentArray), getMostCommonMissedModule(uninformedAbsentArray), getMostCommonDayOfWeek(uninformedAbsentArray) ]).
+            then(()=>{return;});
         }
     }
 }
