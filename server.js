@@ -186,8 +186,9 @@ async function getMostCommonDomain(array, callback)
 async function getSubset(array, callback)
 {
     await wipeData();
-    try {
-    if((array[0])[0].indexOf("Report: Student Timeline") > -1)
+    let val = await JSON.stringify(array[0]);
+    let pos = await val.indexOf("Report: Student Timeline");
+    if(await pos > -1)
     {
         for (var i = 0, len = array.length; i < len; i++)    {      
             loopcount++;
@@ -341,16 +342,12 @@ async function getSubset(array, callback)
                 getMostCommonDayOfWeekMissed = await getMostCommonDayOfWeek(uninformedAbsentArray);
 
                 Promise.all([getMostCommonDomain(libraryResourceArray), getStudentName((unknownArray[0])[0]), getMostCommonTime(uninformedAbsentArray), getMostCommonMissedModule(uninformedAbsentArray), getMostCommonDayOfWeek(uninformedAbsentArray) ]).
-                then(()=>{return;});
+                then(()=>{return "success";});
             }
         }
     }
     else
     {
-        return "error"; 
-    }
-    }
-    catch(err) {
         return "error"; 
     }
 
@@ -376,7 +373,7 @@ app.post('/process', async function(req, res) {
             getSubset(jsonObj).then(
                 (jsonObj)=>{
                 }).then(()=>{
-                    if(jsonObj == "error")
+                    if(!(jsonObj == "error"))
                     {
                     res.render('pages/results', {
                         sessionAttended: attendanceArray, // added
