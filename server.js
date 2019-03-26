@@ -345,7 +345,8 @@ async function getSubset(array, callback)
                 then(()=>{
                     if(libraryMostCommonDomain != null)
                     {
-                        let domain = libraryMostCommonDomain;
+                        let day = getMostCommonDayOfWeekMissed;
+                        console.log(day);
                         return "success";
                     }
                     else {
